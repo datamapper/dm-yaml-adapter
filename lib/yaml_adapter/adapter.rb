@@ -1,6 +1,3 @@
-require 'pathname'
-require 'yaml'
-
 module DataMapper
   module Adapters
     class YamlAdapter < AbstractAdapter
