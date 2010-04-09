@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Kubb"]
-  s.date = %q{2010-02-04}
+  s.date = %q{2010-04-10}
   s.description = %q{YAML Adapter for DataMapper}
   s.email = %q{dan.kubb@gmail.com}
   s.extra_rdoc_files = [
@@ -17,12 +17,13 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "Gemfile",
      "LICENSE",
      "Rakefile",
      "VERSION",
      "dm-yaml-adapter.gemspec",
-     "lib/yaml_adapter.rb",
-     "lib/yaml_adapter/adapter.rb",
+     "lib/dm-yaml-adapter.rb",
+     "lib/dm-yaml-adapter/adapter.rb",
      "spec/adapter_spec.rb",
      "spec/rcov.opts",
      "spec/spec.opts",
@@ -35,8 +36,12 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{datamapper}
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{YAML Adapter for DataMapper}
+  s.test_files = [
+    "spec/adapter_spec.rb",
+     "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
