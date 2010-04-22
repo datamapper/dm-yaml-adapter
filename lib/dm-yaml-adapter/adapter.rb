@@ -1,6 +1,3 @@
-require 'yaml'
-require 'dm-core'
-
 module DataMapper
   module Adapters
     class YamlAdapter < AbstractAdapter
@@ -9,7 +6,7 @@ module DataMapper
         update_records(resources.first.model) do |records|
           resources.each do |resource|
             initialize_serial(resource, records.size.succ)
-            records << resource.attributes(:field)
+            records << attributes_as_fields(resource.attributes(nil))
           end
         end
       end
@@ -25,7 +22,7 @@ module DataMapper
 
         update_records(collection.model) do |records|
           records_to_update = collection.query.filter_records(records.dup)
-          records_to_update.each { |resource| resource.update(attributes) }.size
+          records_to_update.each { |record| record.update(attributes) }.size
         end
       end
 
@@ -60,7 +57,7 @@ module DataMapper
       # @api private
       def update_records(model)
         records = records_for(model)
-        result = yield records
+        result  = yield records
         write_records(model, records)
         result
       end
@@ -101,7 +98,7 @@ module DataMapper
       #
       # @api private
       def yaml_file(model)
-        @path / "#{model.storage_name(name)}.yml"
+        @path.join("#{model.storage_name(name)}.yml")
       end
 
     end # class YamlAdapter
