@@ -43,7 +43,7 @@ module DataMapper
         (@path = Pathname(@options[:path]).freeze).mkpath
       end
 
-      # Retrieves all records for a model and yeilds them to a block.
+      # Retrieves all records for a model and yields them to a block.
       #
       # The block should make any changes to the records in-place. After
       # the block executes all the records are dumped back to the file.
