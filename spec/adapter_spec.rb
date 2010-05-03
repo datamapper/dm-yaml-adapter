@@ -9,8 +9,6 @@ require 'dm-yaml-adapter/spec/setup'
 ENV['ADAPTER']          = 'yaml'
 ENV['ADAPTER_SUPPORTS'] = 'all'
 
-DataMapper::Spec.setup
-
 describe 'DataMapper::Adapters::YamlAdapter' do
 
   before :all do
