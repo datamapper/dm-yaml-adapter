@@ -9,9 +9,9 @@ begin
     gem.name        = 'dm-yaml-adapter'
     gem.summary     = 'YAML Adapter for DataMapper'
     gem.description = gem.summary
-    gem.authors     = ["Dan Kubb"]
-    gem.email       = %q{dan.kubb@gmail.com}
-    gem.homepage    = 'http://github.com/datamapper/dm-more/tree/master/adapters/%s' % gem.name
+    gem.email       = 'dan.kubb@gmail.com'
+    gem.homepage    = 'http://github.com/datamapper/%s' % gem.name
+    gem.authors     = [ 'Dan Kubb' ]
 
     gem.rubyforge_project = 'datamapper'
 
