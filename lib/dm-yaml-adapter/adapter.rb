@@ -38,6 +38,15 @@ module DataMapper
         end
       end
 
+      # @api semipublic
+      def attributes_as_fields(attributes)
+        pairs = attributes.map do |property, value|
+          dumped = value.kind_of?(Module) ? value.name : property.dump(value)
+          [ property.field, dumped ]
+        end
+        Hash[pairs]
+      end
+
       private
 
       # @api semipublic
