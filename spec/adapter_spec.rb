@@ -35,6 +35,7 @@ describe 'DataMapper::Adapters::YamlAdapter' do
       @obj2 = Example.create :name => 'bob'
 
       @obj1.destroy
+
       @obj3 = Example.create :name => 'cathy'
     end
 
@@ -47,8 +48,10 @@ describe 'DataMapper::Adapters::YamlAdapter' do
     it 'should find all of the individual records in the db' do
       examples = Example.all
 
-      examples.collect{|e| e.name}.should include 'cathy'
-      examples.collect{|e| e.name}.should include 'bob'
+      names = examples.map(&:name)
+
+      names.should include 'cathy'
+      names.should include 'bob'
     end
   end
 end

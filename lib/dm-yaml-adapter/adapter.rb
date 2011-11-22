@@ -6,9 +6,16 @@ module DataMapper
     class YamlAdapter < AbstractAdapter
       # @api semipublic
       def create(resources)
-        update_records(resources.first.model) do |records|
+        model = resources.first.model
+        update_records(model) do |records|
+          # Generating next ID
+          # FIXME: This does not work for CPK's
           resources.each do |resource|
-            initialize_serial(resource, records.size.succ)
+            highest_id = records.map do |record|
+              serial = model.serial(name)
+              record.fetch(serial.field)
+            end.max
+            initialize_serial(resource, (highest_id || 0).succ)
             records << attributes_as_fields(resource.attributes(nil))
           end
         end
@@ -69,7 +76,7 @@ module DataMapper
       # @api private
       def update_records(model)
         records = records_for(model)
-        result  = yield records
+        result = yield records
         write_records(model, records)
         result
       end
