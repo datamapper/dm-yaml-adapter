@@ -8,9 +8,11 @@ module DataMapper
       def create(resources)
         model = resources.first.model
         update_records(model) do |records|
-          # Generating next ID
-          # FIXME: This does not work for CPK's
           resources.each do |resource|
+            # Generating next ID
+            # FIXME: 
+            #  * This does not work for CPK's
+            #  * Inefficent for large datasets.
             highest_id = records.map do |record|
               serial = model.serial(name)
               record.fetch(serial.field)
