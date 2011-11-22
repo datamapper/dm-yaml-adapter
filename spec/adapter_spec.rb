@@ -18,4 +18,37 @@ describe 'DataMapper::Adapters::YamlAdapter' do
 
   it_should_behave_like "An Adapter"
 
+  describe "A YAML database with one record deleted" do
+
+    before :all do
+      class ::Example
+        include DataMapper::Resource
+
+        property :id,   Serial
+        property :name, String
+      end
+
+      DataMapper.finalize
+
+      Example.all.destroy
+      @obj1 = Example.create :name => "alice"
+      @obj2 = Example.create :name => "bob"
+
+      @obj1.destroy
+      @obj3 = Example.create :name => "cathy"
+    end
+
+    it "should not have duplicate ids" do
+      file = @adapter.send(:yaml_file, Example)
+      results = YAML.load(open(file).read)
+      results[0]["id"].should_not == results[1]["id"]
+    end
+
+    it "should find all of the individual records in the db" do
+      examples = Example.all
+
+      examples.collect{|e| e.name}.should include "cathy"
+      examples.collect{|e| e.name}.should include "bob"
+    end
+  end
 end
