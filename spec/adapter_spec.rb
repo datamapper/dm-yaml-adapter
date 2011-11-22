@@ -16,9 +16,9 @@ describe 'DataMapper::Adapters::YamlAdapter' do
     @repository = DataMapper.repository(@adapter.name)
   end
 
-  it_should_behave_like "An Adapter"
+  it_should_behave_like 'An Adapter'
 
-  describe "A YAML database with one record deleted" do
+  describe 'A YAML database with one record deleted' do
 
     before :all do
       class ::Example
@@ -31,24 +31,24 @@ describe 'DataMapper::Adapters::YamlAdapter' do
       DataMapper.finalize
 
       Example.all.destroy
-      @obj1 = Example.create :name => "alice"
-      @obj2 = Example.create :name => "bob"
+      @obj1 = Example.create :name => 'alice'
+      @obj2 = Example.create :name => 'bob'
 
       @obj1.destroy
-      @obj3 = Example.create :name => "cathy"
+      @obj3 = Example.create :name => 'cathy'
     end
 
-    it "should not have duplicate ids" do
+    it 'should not have duplicate ids' do
       file = @adapter.send(:yaml_file, Example)
       results = YAML.load(open(file).read)
-      results[0]["id"].should_not == results[1]["id"]
+      results[0]['id'].should_not == results[1]['id']
     end
 
-    it "should find all of the individual records in the db" do
+    it 'should find all of the individual records in the db' do
       examples = Example.all
 
-      examples.collect{|e| e.name}.should include "cathy"
-      examples.collect{|e| e.name}.should include "bob"
+      examples.collect{|e| e.name}.should include 'cathy'
+      examples.collect{|e| e.name}.should include 'bob'
     end
   end
 end
