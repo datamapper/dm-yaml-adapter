@@ -11,11 +11,9 @@ ENV['ADAPTER_SUPPORTS'] = 'all'
 
 describe 'DataMapper::Adapters::YamlAdapter' do
 
-  before :all do
-    @adapter    = DataMapper::Spec.adapter
-    @repository = DataMapper.repository(@adapter.name)
-  end
+  let(:adapter)    { DataMapper::Spec.adapter }
+  let(:repository) { DataMapper.repository(adapter.name) }
 
-  it_should_behave_like "An Adapter"
+  it_should_behave_like 'An Adapter'
 
 end
