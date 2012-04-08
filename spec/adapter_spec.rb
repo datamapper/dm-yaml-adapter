@@ -38,7 +38,7 @@ describe 'DataMapper::Adapters::YamlAdapter' do
     end
 
     it 'should not have duplicate ids' do
-      file = @adapter.send(:yaml_file, Example)
+      file = adapter.send(:yaml_file, Example)
       results = YAML.load(open(file).read)
       results[0]['id'].should_not == results[1]['id']
     end
