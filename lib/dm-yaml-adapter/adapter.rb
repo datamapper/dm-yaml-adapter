@@ -8,16 +8,9 @@ module DataMapper
       def create(resources)
         model = resources.first.model
         update_records(model) do |records|
+          max_id = max_id_for(model, records)
           resources.each do |resource|
-            # Generating next ID
-            # FIXME: 
-            #  * This does not work for CPK's
-            #  * Inefficent for large datasets.
-            highest_id = records.map do |record|
-              serial = model.serial(name)
-              record.fetch(serial.field)
-            end.max
-            initialize_serial(resource, (highest_id || 0).succ)
+            initialize_serial(resource, max_id += 1)
             records << attributes_as_fields(resource.attributes(nil))
           end
         end
@@ -120,6 +113,29 @@ module DataMapper
       # @api private
       def yaml_file(model)
         @path.join("#{model.storage_name(name)}.yml")
+      end
+
+      # Get the maximum id to use as a base when creating new records
+      #
+      # @param [DataMapper::Model] model
+      #
+      # @param [Hash] records
+      #
+      # @return [Integer]
+      #
+      # @api private
+      def max_id_for(model, records)
+        serial = model.serial(name)
+
+        # Generating next ID
+        # FIXME:
+        #  * This does not work for CPK's
+        #  * Inefficent for large datasets.
+        if serial
+          records.map { |record| record.fetch(serial.field) }.max || 0
+        else
+          records.size
+        end
       end
 
     end # class YamlAdapter
