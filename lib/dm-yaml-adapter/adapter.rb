@@ -1,4 +1,5 @@
 require 'yaml'
+require 'safe_yaml'
 require 'dm-core'
 
 module DataMapper
@@ -82,7 +83,7 @@ module DataMapper
       # @api private
       def records_for(model)
         file = yaml_file(model)
-        file.readable? && YAML.load_file(file) || []
+        file.readable? && YAML.safe_load_file(file) || []
       end
 
       # Writes all records to a file

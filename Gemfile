@@ -8,7 +8,8 @@ DATAMAPPER   = SOURCE == :path ? Pathname(__FILE__).dirname.parent : 'http://git
 DM_VERSION   = '~> 1.2.0'
 CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
 
-gem 'dm-core', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
+gem 'dm-core',   DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
+gem 'safe_yaml', '~> 0.6.1'
 
 group :development do
 
