@@ -9,7 +9,7 @@ DM_VERSION   = '~> 1.2.0'
 CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
 
 gem 'dm-core',   DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
-gem 'safe_yaml', '~> 0.6.1'
+gem 'safe_yaml', '~> 0.7.0'
 
 group :development do
 
